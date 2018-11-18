@@ -1,0 +1,67 @@
+#include <LiquidCrystal.h>
+
+const int rs = 8, en = 9, d4 = 4, d5 = 5, d6 = 6, d7 = 7;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
+  lcd.begin(16, 2);
+  lcd.setCursor(0,0);
+  Serial.begin(9600);
+}
+
+int cursor_x = 0;
+int cursor_y = 0;
+
+void loop(){
+
+  int buton = analogRead(0);
+  boolean count = false;
+  
+  if (buton<50) {
+    if(cursor_x < 15)
+      cursor_x ++;   
+    count = true;
+    
+  }else if(buton<195) {
+   if(cursor_y == 1)
+      cursor_y = 0;
+    count = true;
+    
+  }else if(buton<380) {
+    if(cursor_y == 0)
+      cursor_y = 1;
+    count = true;
+    
+  }else if(buton<555) {
+    if(cursor_x >= 1)
+      cursor_x --;
+    count = true;
+  }
+
+    if(count){
+        lcd.setCursor(cursor_x, cursor_y);
+    }
+  
+  
+ if (Serial.available() > 0) {
+    String s = Serial.readString();
+    String s1 = s.substring(0,16-cursor_x);
+    String s2 = s.substring(16-cursor_x,31);
+    if(cursor_y==0){
+    lcd.print(s1);
+    lcd.setCursor(0,1);
+    lcd.print(s2);
+    }else{
+    lcd.print(s1);
+    lcd.setCursor(0,0);
+    lcd.print(s2);
+    }
+  }
+ 
+  
+  lcd.noBlink();
+  delay(200);
+  // Turn on the blinking cursor:
+  lcd.blink();
+  delay(200);
+}
