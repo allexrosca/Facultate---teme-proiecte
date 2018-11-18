@@ -1,0 +1,39 @@
+(assert) -> creeaza un fact (in linia de comanda)
+(facts) -> afiseaza lista de facts
+(retract factID) -> sterge un fact
+-fiecare fact are un id unic, indiferent daca are acelasi continut sau nu
+-fiecare regula se aplica o singura data pe un fact
+
+
+(defrule numeRegule (pattern) => (ce se intampla)) -> asta pentru linia de comanda
+
+
+Definire facts in fisier
+(deffacts numeFact
+	(fact1)
+	...
+	(factn)
+	)
+	
+Definire reguli in fisier
+(defrule numeRegula
+	(regula1)
+	...
+	(regulaN) (este && intre reguli)
+	=>
+	(ce se intampla1)
+	...
+	(ce se intamplaN)
+	)
+	
+	
+(clear) -> sterge toate facts si reguli
+(load "numeFisier")
+(reset) -> revine la starea initiala a mediului de programare clips -- se executa toate comenzile din fisierele respective
+(run) 
+
+(run 1) -> executa doar un pas
+(printout t "ceva") -> afisarea in terminal
+
+
+tema -> toate 3 feluri de implementari -> bonus

@@ -1,0 +1,41 @@
+? - inlocuieste fix un camp
+$? - 0 sau mai multe campuri
+crlf - un fel de endl
+(read) - citeste doar un camp, pana la un space
+(readline) - citeste tot stringul de la tastatura pana la un enter
+(explode$(read)) - sparge campurile din stringul citit de la tastatura
+
+(lista 5 3 4 1)
+(defrule iteratie
+	(lista $? ?x $?)
+	=>
+	(printout t ?x crlf)
+)	
+
+
+
+
+
+
+
+
+(deffacts studenti
+	(student ionel ia 10 pbr 4)
+	(student gigel ia 4)
+)
+	
+(defrule afisez
+	(student ?x $?)
+	=>
+	(printout t ?x crlf)
+)
+
+(defrule adevPBR
+	?a<-(student ?x $?z)
+	(not(student ?x $? pbr $?)
+	=>
+	(printout t "dati nota pt" ?x crlf)
+	(bind ?y (read))
+	(retract ?a)
+	(assert(student ?x $?z pbr ?y))
+)
